@@ -34,10 +34,12 @@ jobs:
           node-version: '16'
 
       - name: Client Install dependencies
+        working-directory: client
         run: npm install
  
 #      - name: Client Run tests
 #        run: npm run test:headless
 
       - name: Client Build
+        working-directory: client
         run: npm run build:prod
