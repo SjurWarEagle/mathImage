@@ -53,7 +53,7 @@ public class ImageRenderImpl {
         }
 
         image = addLegend(image, data.colorGroups);
-        image = addTypeOfCalc(image, generator);
+        addTypeOfCalc(image, generator);
         //g.drawString(message, (width - stringWidth) / 2, height / 2 + stringHeight / 4);
 
         ImageIO.write(image, "PNG", new File(filename));

@@ -4,7 +4,6 @@ import de.tkunkel.image.converter.ColorIndexer;
 import de.tkunkel.image.converter.RandomImageProcessorImpl;
 import de.tkunkel.image.renderer.ImageRenderImpl;
 import de.tkunkel.image.tasks.ITaskGenerator;
-import de.tkunkel.image.tasks.SmallAdditionTaskGeneratorImpl;
 import de.tkunkel.image.tasks.SmallMultiplyTaskGeneratorImpl;
 import de.tkunkel.image.types.ImageProcessingData;
 import org.springframework.boot.ApplicationArguments;

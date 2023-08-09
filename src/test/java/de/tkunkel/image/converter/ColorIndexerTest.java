@@ -1,5 +1,6 @@
 package de.tkunkel.image.converter;
 
+import de.tkunkel.image.tasks.SmallAdditionTaskGeneratorImpl;
 import de.tkunkel.image.types.ColorGroup;
 import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.PixelProcessingData;
@@ -16,7 +17,7 @@ class ColorIndexerTest {
         ColorIndexer colorIndexer = new ColorIndexer();
         ImageProcessingData data = generateTestData(10);
 
-        List<ColorGroup> colorGroups = colorIndexer.indexColors(data);
+        List<ColorGroup> colorGroups = colorIndexer.indexColors(data, new SmallAdditionTaskGeneratorImpl());
         Assertions.assertNotNull(colorGroups);
         Assertions.assertEquals(3, colorGroups.size());
         Assertions.assertEquals(0, colorGroups.get(0).min);

@@ -20,8 +20,8 @@ public class SmallMultiplyTaskGeneratorImpl implements ITaskGenerator {
     @Override
     public String generate(int min, int max) {
         int gap = 1;
-        int a = 0;
-        int b = 0;
+        int a;
+        int b;
         int loops = 0;
 
         do {
@@ -60,7 +60,7 @@ public class SmallMultiplyTaskGeneratorImpl implements ITaskGenerator {
 
     @Override
     public int calc(int a, int b) {
-        return a*b;
+        return a * b;
     }
 
     @Override

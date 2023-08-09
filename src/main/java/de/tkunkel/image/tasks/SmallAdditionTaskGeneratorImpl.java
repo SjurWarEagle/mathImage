@@ -20,8 +20,8 @@ public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
     @Override
     public String generate(int min, int max) {
         int gap = 1;
-        int a = 0;
-        int b = 0;
+        int a;
+        int b;
 
         do {
             a = rnd.nextInt(2, max - gap);
