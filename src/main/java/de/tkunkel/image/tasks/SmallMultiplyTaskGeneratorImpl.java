@@ -9,12 +9,12 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
+public class SmallMultiplyTaskGeneratorImpl implements ITaskGenerator {
     private static final Random rnd = new Random();
 
     @Override
     public TaskType getType() {
-        return TaskType.SMALL_ADDITION;
+        return TaskType.SMALL_MULTIPLY;
     }
 
     @Override
@@ -22,16 +22,19 @@ public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
         int gap = 1;
         int a = 0;
         int b = 0;
+        int loops = 0;
 
         do {
             a = rnd.nextInt(2, max - gap);
             b = rnd.nextInt(2, max - gap);
-        } while (((a + b) < min) || ((a + b) > max));
+            if (loops++ > 100_000_000) {
+                throw new RuntimeException("Too many loops");
+            }
+        } while (((a * b) < min) || ((a * b) > max) || a > 10 || b > 10);
 
-        return a + " + " + b;
+        return a + " x " + b;
     }
 
-    @Override
     public void generateForAll(ImageProcessingData data) {
         // System.out.println(data.colorGroups);
         for (int x = 0; x < data.pixels.length; x++) {
@@ -57,12 +60,12 @@ public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
 
     @Override
     public int calc(int a, int b) {
-        return a+b;
+        return a*b;
     }
 
     @Override
     public int getMaxValue() {
-        return 100;
+        return 90;
     }
 
     @Override
@@ -72,6 +75,6 @@ public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
 
     @Override
     public String getLegendText() {
-        return "1+1";
+        return "1x1";
     }
 }

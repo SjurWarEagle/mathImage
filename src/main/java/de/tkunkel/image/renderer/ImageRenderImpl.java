@@ -1,5 +1,6 @@
 package de.tkunkel.image.renderer;
 
+import de.tkunkel.image.tasks.ITaskGenerator;
 import de.tkunkel.image.types.ColorGroup;
 import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.PixelProcessingData;
@@ -17,14 +18,14 @@ public class ImageRenderImpl {
     final int sizeOfCell = 50;
     Color borderColor = Color.DARK_GRAY;
 
-    public void renderImage(String filename, String filenameWithSolution, ImageProcessingData data) throws IOException {
+    public void renderImage(String filename, String filenameWithSolution, ImageProcessingData data, ITaskGenerator generator) throws IOException {
         int width = data.pixels.length;
         int height = data.pixels[0].length;
-        renderImage(false, filename, data, width, height);
-        renderImage(true, filenameWithSolution, data, width, height);
+        renderImage(false, filename, data, width, height, generator);
+        renderImage(true, filenameWithSolution, data, width, height, generator);
     }
 
-    private void renderImage(boolean withSolution, String filename, ImageProcessingData data, int width, int height) throws IOException {
+    private void renderImage(boolean withSolution, String filename, ImageProcessingData data, int width, int height, ITaskGenerator generator) throws IOException {
         BufferedImage image = new BufferedImage(width * sizeOfCell, height * sizeOfCell, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
 
@@ -47,14 +48,29 @@ public class ImageRenderImpl {
                 g.setColor(borderColor);
                 g.drawRect(x * sizeOfCell, y * sizeOfCell, sizeOfCell, sizeOfCell);
 
-                drawTextCentered(g, x, y, text, targetColor, withSolution, data.pixels[x][y].targetMin, data.pixels[x][y].targetMax);
+                drawTextCentered(g, x, y, text, targetColor, withSolution, data.pixels[x][y].targetMin, data.pixels[x][y].targetMax, generator);
             }
         }
 
         image = addLegend(image, data.colorGroups);
+        image = addTypeOfCalc(image, generator);
         //g.drawString(message, (width - stringWidth) / 2, height / 2 + stringHeight / 4);
 
         ImageIO.write(image, "PNG", new File(filename));
+    }
+
+    private BufferedImage addTypeOfCalc(BufferedImage imageWithLegend, ITaskGenerator generator) {
+        int gap = 20;
+        Graphics2D g = imageWithLegend.createGraphics();
+        FontMetrics fontMetrics = g.getFontMetrics();
+        int textWidth = fontMetrics.stringWidth(generator.getLegendText());
+
+        int x = imageWithLegend.getWidth() - gap / 2 - textWidth;
+        int y = imageWithLegend.getHeight() - gap / 2;
+        g.setColor(Color.DARK_GRAY);
+        g.drawString(generator.getLegendText(), x, y);
+
+        return imageWithLegend;
     }
 
     private BufferedImage addLegend(BufferedImage image, List<ColorGroup> colorGroups) {
@@ -64,6 +80,7 @@ public class ImageRenderImpl {
 
         BufferedImage imageWithLegend = new BufferedImage(image.getWidth(), image.getHeight() + heightOfLegend, image.getType());
         Graphics2D g = imageWithLegend.createGraphics();
+        FontMetrics fontMetrics = g.getFontMetrics();
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, 0, imageWithLegend.getWidth(), imageWithLegend.getHeight());
 
@@ -71,23 +88,26 @@ public class ImageRenderImpl {
 
         int cnt = 0;
         for (ColorGroup colorGroup : colorGroups) {
-            cnt++;
             int x = gap;
-            int y = image.getHeight() + cnt * gap + cnt * legendColorSize;
-            g.setColor(colorGroup.color);
-            g.fillRect(x, y, legendColorSize, legendColorSize);
+            int y = image.getHeight() + gap + cnt * gap + cnt * legendColorSize + fontMetrics.getAscent();
+
+            g.setColor(Color.DARK_GRAY);
+            g.drawString(colorGroup.min + "-" + colorGroup.max, x, y);
+
+            x += legendColorSize + 5 + gap;
+            y -= gap-fontMetrics.getAscent()/2;
             g.setColor(Color.DARK_GRAY);
             g.drawRect(x, y, legendColorSize, legendColorSize);
+            g.setColor(colorGroup.color);
+            g.fillRect(x, y, legendColorSize, legendColorSize);
 
-            x += legendColorSize + gap / 2;
-            y += legendColorSize / 2 + 5;
-            g.drawString(colorGroup.min + "->" + colorGroup.max, x, y);
+            cnt++;
         }
 
         return imageWithLegend;
     }
 
-    private void drawTextCentered(Graphics2D g, int x, int y, String text, Color targetColor, boolean withSolution, int min, int max) {
+    private void drawTextCentered(Graphics2D g, int x, int y, String text, Color targetColor, boolean withSolution, int min, int max, ITaskGenerator generator) {
 
         FontMetrics fontMetrics = g.getFontMetrics();
         int textWidth = fontMetrics.stringWidth(text);
@@ -106,14 +126,14 @@ public class ImageRenderImpl {
             g.drawString("[" + min + ":" + max + "]", x * sizeOfCell + 10, (y + 1) * sizeOfCell - 5);
 
             // solution
-            int result = calc(text);
+            int result = calc(text, generator);
             g.drawString("" + result, x * sizeOfCell + 20, y * sizeOfCell + 15);
         }
     }
 
-    private int calc(String text) {
+    private int calc(String text, ITaskGenerator generator) {
         String[] split = text.split(" ");
-        return Integer.parseInt(split[0]) + Integer.parseInt(split[2]);
+        return generator.calc(Integer.parseInt(split[0]), Integer.parseInt(split[2]));
     }
 
     Color complementaryColor(final Color bgColor) {

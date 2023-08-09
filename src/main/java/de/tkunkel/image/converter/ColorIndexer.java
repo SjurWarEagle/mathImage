@@ -1,5 +1,6 @@
 package de.tkunkel.image.converter;
 
+import de.tkunkel.image.tasks.ITaskGenerator;
 import de.tkunkel.image.types.ColorGroup;
 import de.tkunkel.image.types.ImageProcessingData;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Service
 public class ColorIndexer {
 
-    public List<ColorGroup> indexColors(ImageProcessingData data) {
+    public List<ColorGroup> indexColors(ImageProcessingData data, ITaskGenerator generator) {
         List<ColorGroup> rc = new ArrayList<>();
         Set<Color> colors = new HashSet<>();
 
@@ -23,8 +24,8 @@ public class ColorIndexer {
             }
         }
 
-        int slice = (data.maxValue - data.minValue) / colors.size();
-        int from = data.minValue;
+        int slice = (generator.getMaxValue() - generator.getMinValue()) / colors.size();
+        int from = generator.getMinValue();
         int to = from + slice-1;
 
         for (Color color : colors) {
