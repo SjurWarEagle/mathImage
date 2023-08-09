@@ -23,21 +23,20 @@ public class ColorIndexer {
             }
         }
 
-
         int slice = (data.maxValue - data.minValue) / colors.size();
         int from = data.minValue;
-        int to = from + slice;
-        int cnt = 1;
+        int to = from + slice-1;
+
         for (Color color : colors) {
             ColorGroup colorGroup = new ColorGroup();
             colorGroup.min = from;
-            colorGroup.max = to-1;
+            colorGroup.max = to;
             colorGroup.color = color;
 
             rc.add(colorGroup);
 
-            from = to;
-            to = from + cnt++ * to;
+            from = to+1;
+            to = from + slice-1;
         }
 
         return rc;

@@ -4,5 +4,5 @@ import de.tkunkel.image.types.TaskType;
 
 public interface ITaskGenerator {
     TaskType getType();
-    String generate(int value);
+    String generate(int min, int max);
 }
