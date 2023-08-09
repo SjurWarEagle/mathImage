@@ -38,7 +38,9 @@ public class StartRenderFromFile implements ApplicationRunner {
         generator = new SmallMultiplyTaskGeneratorImpl();
 
         //        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_diamont_sword.png");
-        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_diamont_pick.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_diamont_pick.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_creeper.png");
+        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\pokemon_pikachu.png");
         imageProcessingData.colorGroups = colorIndexer.indexColors(imageProcessingData, generator);
 
         generator.generateForAll(imageProcessingData);
