@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Service
 public class ImageRenderImpl {
-    int sizeOfCell = 50;
+    final int sizeOfCell = 50;
     Color borderColor = Color.DARK_GRAY;
 
     public void renderImage(String filename, String filenameWithSolution, ImageProcessingData data) throws IOException {

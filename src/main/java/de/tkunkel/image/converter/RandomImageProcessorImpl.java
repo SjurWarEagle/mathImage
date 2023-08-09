@@ -2,7 +2,6 @@ package de.tkunkel.image.converter;
 
 import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.PixelProcessingData;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
