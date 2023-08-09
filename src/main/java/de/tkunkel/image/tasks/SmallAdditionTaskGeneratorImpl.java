@@ -1,6 +1,7 @@
 package de.tkunkel.image.tasks;
 
 import de.tkunkel.image.types.ImageProcessingData;
+import de.tkunkel.image.types.TaskType;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;

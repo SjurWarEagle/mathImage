@@ -1,4 +1,4 @@
-package de.tkunkel.image.tasks;
+package de.tkunkel.image.types;
 
 public enum TaskType {
     SMALL_ADDITION,SMALL_MULTIPLY,

@@ -1,4 +1,4 @@
-package de.tkunkel.image.converter;
+package de.tkunkel.image.types;
 
 import java.awt.*;
 

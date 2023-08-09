@@ -1,5 +1,6 @@
 package de.tkunkel.image.converter;
 
+import de.tkunkel.image.types.ColorGroup;
 import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.PixelProcessingData;
 import org.junit.jupiter.api.Assertions;
@@ -7,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ColorIndexerTest {
 

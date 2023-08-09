@@ -1,6 +1,8 @@
 package de.tkunkel.image.converter;
 
+import de.tkunkel.image.types.ColorGroup;
 import de.tkunkel.image.types.ImageProcessingData;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class ColorIndexer {
 
     public List<ColorGroup> indexColors(ImageProcessingData data) {
