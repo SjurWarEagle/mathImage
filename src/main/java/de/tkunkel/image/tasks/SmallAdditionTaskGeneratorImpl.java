@@ -37,6 +37,7 @@ public class SmallAdditionTaskGeneratorImpl implements ITaskGenerator {
                 }
             }
         }
+
         for (int x = 0; x < data.pixels.length; x++) {
             for (int y = 0; y < data.pixels[x].length; y++) {
                 data.pixels[x][y].text = generate(10 + rnd.nextInt(90));
