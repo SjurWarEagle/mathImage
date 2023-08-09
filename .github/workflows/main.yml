@@ -25,5 +25,5 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -U -B test package --file pom.xml
+        run: cd server; mvn -U -B test package --file pom.xml
 
