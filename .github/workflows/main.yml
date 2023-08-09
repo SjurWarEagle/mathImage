@@ -33,11 +33,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Client: Install dependencies
+      - name: Client Install dependencies
         run: npm install
  
-#      - name: Client: Run tests
+#      - name: Client Run tests
 #        run: npm run test:headless
 
-      - name: Client: Build
+      - name: Client Build
         run: npm run build:prod
