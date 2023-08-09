@@ -24,6 +24,20 @@ jobs:
           java-version: '18'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: cd server; mvn -U -B test package --file pom.xml
+      - name: Build server
+        working-directory: server
+        run: mvn -U -B test package --file pom.xml
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Client: Install dependencies
+        run: npm install
+ 
+#      - name: Client: Run tests
+#        run: npm run test:headless
+
+      - name: Client: Build
+        run: npm run build:prod
