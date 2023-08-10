@@ -12,7 +12,7 @@
   </button>
 </div>
 
-<mat-accordion>
+<mat-accordion class="results">
   <mat-expansion-panel
     expanded
     *ngIf="image"
@@ -27,11 +27,9 @@
         Image to paint
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <div
-         class="result-image-solution"
-    >
-      <img src="data:image/png;base64,{{image}}"/>
-    </div>
+    <img
+      class="result-image-solution"
+      src="data:image/png;base64,{{image}}"/>
   </mat-expansion-panel>
   <mat-expansion-panel
     *ngIf="imageWithSolution"
@@ -46,10 +44,8 @@
         Image with solution
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <div
-         class="result-image-solution"
-    >
-      <img src="data:image/png;base64,{{imageWithSolution}}"/>
-    </div>
+    <img
+      class="result-image-solution"
+      src="data:image/png;base64,{{imageWithSolution}}"/>
   </mat-expansion-panel>
 </mat-accordion>
