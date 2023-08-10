@@ -1,4 +1,4 @@
-import {Component, OnChanges, SimpleChanges} from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -18,7 +18,7 @@ export class MainComponent {
   constructor(private http: HttpClient) {
   }
 
-  public mathChanged(event: any): void {
+  public mathChanged(): void {
     this.updateImages();
   }
 
@@ -54,7 +54,7 @@ export class MainComponent {
       this.showLoading = false;
       this.image = value.image;
       this.imageWithSolution = value.imageWithSolution;
-    }, (error) => {
+    }, () => {
       this.showLoading = false;
     });
   }

@@ -90,19 +90,13 @@ public class ImageUploadController {
     }
 
     private static ITaskGenerator determinMathByType(TaskType taskType, ITaskGenerator generator) {
-        if (Objects.isNull(taskType)){
+        if (Objects.isNull(taskType)) {
             return new SmallAdditionTaskGeneratorImpl();
         }
         switch (taskType) {
-            case SMALL_ADDITION -> {
-                generator = new SmallAdditionTaskGeneratorImpl();
-            }
-            case SMALL_MULTIPLY -> {
-                generator = new SmallMultiplyTaskGeneratorImpl();
-            }
-            case BIG_ADDITION, BIG_MULTIPLY -> {
-                throw new UnsupportedOperationException("not implemented");
-            }
+            case SMALL_ADDITION -> generator = new SmallAdditionTaskGeneratorImpl();
+            case SMALL_MULTIPLY -> generator = new SmallMultiplyTaskGeneratorImpl();
+            case BIG_ADDITION, BIG_MULTIPLY -> throw new UnsupportedOperationException("not implemented");
         }
         return generator;
     }
