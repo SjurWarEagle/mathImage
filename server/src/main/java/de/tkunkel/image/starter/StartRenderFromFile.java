@@ -41,10 +41,12 @@ public class StartRenderFromFile {
         FileImageProcessorImpl fileImageProcessor = new FileImageProcessorImpl();
         generator = new SmallMultiplyTaskGeneratorImpl();
 
-        //        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_diamont_sword.png");
-//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_diamont_pick.png");
-//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\mc_creeper.png");
-        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\src\\main\\resources\\images\\pokemon_pikachu.png");
+        //        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\server\\src\\main\\resources\\images\\mc_diamont_sword.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\server\\src\\main\\resources\\images\\mc_diamont_pick.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\server\\src\\main\\resources\\images\\mc_creeper.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\server\\src\\main\\resources\\images\\pokemon_pikachu.png");
+//        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\server\\src\\main\\resources\\images\\bug_1.png");
+        ImageProcessingData imageProcessingData = fileImageProcessor.readFile("D:\\IdeaProjects\\mathImage\\server\\src\\main\\resources\\images\\bug_2.png");
         imageProcessingData.colorGroups = colorIndexer.indexColors(imageProcessingData, generator);
 
         generator.generateForAll(imageProcessingData);

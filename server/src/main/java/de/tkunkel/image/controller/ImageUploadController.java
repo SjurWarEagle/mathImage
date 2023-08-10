@@ -39,6 +39,9 @@ public class ImageUploadController {
     )
     public GeneratedImagesResponse uploadImage(@RequestParam MultipartFile sourceImage, HttpServletRequest request, HttpServletResponse response) {
         try {
+            if (sourceImage.getBytes().length>100_000){
+                throw new RuntimeException("Your image is too big");
+            }
             BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(sourceImage.getBytes()));
             GeneratedImagesResponse responseData = processImage(bufferedImage);
             return responseData;
