@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:with-proxy": "ng serve  --proxy-config proxy.conf.js",
+    "start:with-proxy": "ng serve  --configuration development --proxy-config proxy.conf.js",
     "build": "ng build",
-    "build:prod": "ng build  --configuration production",
+    "build:prod": "ng build --configuration production",
+    "updateBuildInfo": "node ./replace.build.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -37,6 +38,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "replace-in-file": "^7.0.1",
     "typescript": "~5.1.3"
   }
 }
