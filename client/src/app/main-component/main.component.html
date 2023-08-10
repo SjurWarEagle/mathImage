@@ -1,7 +1,11 @@
+<div class="loading-indicator"
+     *ngIf="showLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
 <input type="file" class="file-input"
        requiredFileType="image/png"
        (change)="onFileSelected($event)" #fileUpload>
-
 <div class="file-upload">
 
   {{fileName || "No file uploaded yet."}}
@@ -11,6 +15,19 @@
     <mat-icon>attach_file</mat-icon>
   </button>
 </div>
+
+<mat-radio-group aria-label="Select an option"
+                 [(ngModel)]="selectedMath"
+                 (change)="mathChanged($event)"
+>
+  <mat-radio-button value="SMALL_ADDITION"
+  >small addition (1+1)
+  </mat-radio-button>
+
+  <mat-radio-button value="SMALL_MULTIPLY"
+  >small multiply (1x1)
+  </mat-radio-button>
+</mat-radio-group>
 
 <mat-accordion class="results">
   <mat-expansion-panel

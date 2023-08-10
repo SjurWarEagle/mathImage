@@ -1,36 +1,61 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
-    selector: 'app-main-component',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss']
+  selector: 'app-main-component',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-    public fileName: string = '';
-    public image?: string = undefined;
-    public imageWithSolution?: string = undefined;
 
-    constructor(private http: HttpClient) {
+  public showLoading: boolean = false;
+  public file?: File;
+  public fileName: string = '';
+  public selectedMath: string = 'SMALL_MULTIPLY';
+  public image?: string = undefined;
+  public imageWithSolution?: string = undefined;
+
+  constructor(private http: HttpClient) {
+  }
+
+  public mathChanged(event: any): void {
+    this.updateImages();
+  }
+
+  public onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      this.file = file;
+      this.updateImages();
+    }
+  }
+
+  private updateImages() {
+    if (!this.file){
+      //no file selected
+      return;
+    }
+    if (!this.selectedMath){
+      //no math selected
+      return;
     }
 
-    public onFileSelected(event: any): void {
-        const file: File = event.target.files[0];
+    this.showLoading = true;
+    const formData = new FormData();
 
-        if (file) {
+    formData.append("sourceImage", this.file);
+    formData.append("selectedMath", this.selectedMath);
 
-            this.fileName = file.name;
+    const upload$ = this.http.post("/api/image-upload", formData);
 
-            const formData = new FormData();
-
-            formData.append("sourceImage", file);
-
-            const upload$ = this.http.post("/api/image-upload", formData);
-
-            upload$.subscribe((value:any) => {
-                this.image = value.image;
-                this.imageWithSolution = value.imageWithSolution;
-            });
-        }
-    }
+    upload$.subscribe((value: any) => {
+      this.showLoading = false;
+      this.image = value.image;
+      this.imageWithSolution = value.imageWithSolution;
+    }, (error) => {
+      this.showLoading = false;
+    });
+  }
 }
