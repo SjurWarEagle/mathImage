@@ -4,7 +4,7 @@ const buildEnv = process.argv[3];
 
 const optionsVersion = {
   files: 'src/environments/environment.ts',
-  from: /'DEV'/g,
+  from: /BUILD-VERSION/g,
   to: buildEnv,
   allowEmptyPaths: false,
 };

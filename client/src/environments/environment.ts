@@ -1,5 +1,5 @@
 export const environment = {
-  buildVersion: 'DEV',
+  buildVersion: 'BUILD-VERSION',
   buildDate: 'BUILD-DATE',
   production: false,
 };
