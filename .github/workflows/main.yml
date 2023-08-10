@@ -45,7 +45,7 @@ jobs:
 #      - name: Client Run tests
 #        run: npm run test:headless
       - name: Client Prepare Build
-        run: npm run updateBuild -- $(date +"%Y%m%d-%H%M%S") "prod"
+        run: npm run updateBuildInfo -- $(date +"%Y%m%d-%H%M%S") "prod"
         working-directory: client
         
       - name: Client Build
