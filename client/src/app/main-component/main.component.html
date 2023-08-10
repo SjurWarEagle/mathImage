@@ -1,4 +1,5 @@
 <input type="file" class="file-input"
+       requiredFileType="image/png"
        (change)="onFileSelected($event)" #fileUpload>
 
 <div class="file-upload">
@@ -11,5 +12,44 @@
   </button>
 </div>
 
-<div class="result-image"></div>
-<div class="result-image-solution"></div>
+<mat-accordion>
+  <mat-expansion-panel
+    expanded
+    *ngIf="image"
+  >
+    <mat-expansion-panel-header
+      class="panel-title"
+    >
+      <mat-panel-title>
+        Image
+      </mat-panel-title>
+      <mat-panel-description>
+        Image to paint
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div
+         class="result-image-solution"
+    >
+      <img src="data:image/png;base64,{{image}}"/>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel
+    *ngIf="imageWithSolution"
+  >
+    <mat-expansion-panel-header
+      class="panel-title"
+    >
+      <mat-panel-title>
+        Solution
+      </mat-panel-title>
+      <mat-panel-description>
+        Image with solution
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div
+         class="result-image-solution"
+    >
+      <img src="data:image/png;base64,{{imageWithSolution}}"/>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

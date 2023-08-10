@@ -4,20 +4,17 @@ import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.PixelProcessingData;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 @Service
-public class FileImageProcessorImpl implements IImageProcessor {
+public class BufferedImageToImageProcessorImpl implements IImageProcessor {
 
 
-    public ImageProcessingData readFile(String filename) throws IOException {
+    public ImageProcessingData read(BufferedImage bufferedImage) throws IOException {
 
         ImageProcessingData rc = new ImageProcessingData();
-        BufferedImage bufferedImage = ImageIO.read(new File(filename));
 
         rc.pixels = new PixelProcessingData[bufferedImage.getWidth()][bufferedImage.getHeight()];
 

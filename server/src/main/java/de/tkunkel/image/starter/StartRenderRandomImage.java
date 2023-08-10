@@ -6,15 +6,18 @@ import de.tkunkel.image.renderer.ImageRenderImpl;
 import de.tkunkel.image.tasks.ITaskGenerator;
 import de.tkunkel.image.tasks.SmallMultiplyTaskGeneratorImpl;
 import de.tkunkel.image.types.ImageProcessingData;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"de.tkunkel.image"})
-public class StartRenderRandomImage implements ApplicationRunner {
+public class StartRenderRandomImage {
     private final RandomImageProcessorImpl randomImageProcessor;
     private final ImageRenderImpl imageRender;
     private ITaskGenerator generator;
@@ -28,12 +31,12 @@ public class StartRenderRandomImage implements ApplicationRunner {
         this.colorIndexer = colorIndexer;
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(StartRenderRandomImage.class, args);
+    public static void main(String[] args) throws Exception {
+        ConfigurableApplicationContext context = SpringApplication.run(StartRenderRandomImage.class, args);
+        context.getBean(StartRenderRandomImage.class).startup();
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void startup() throws Exception {
         ImageProcessingData imageProcessingData = randomImageProcessor.generateProcessingData();
         generator=new SmallMultiplyTaskGeneratorImpl();
 
@@ -41,7 +44,12 @@ public class StartRenderRandomImage implements ApplicationRunner {
 
         generator.generateForAll(imageProcessingData);
 
-        imageRender.renderImage("output/tmp.png", "output/tmp_solved.png", imageProcessingData, generator);
+        BufferedImage image = imageRender.renderImage(imageProcessingData, generator, false);
+        ImageIO.write(image, "PNG", new File("output/tmp.png"));
+
+        image = imageRender.renderImage(imageProcessingData, generator, true);
+        ImageIO.write(image, "PNG", new File("output/tmp_solved.png"));
+
 
         System.exit(0);
     }

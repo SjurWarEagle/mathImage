@@ -18,14 +18,14 @@ public class ImageRenderImpl {
     final int sizeOfCell = 50;
     Color borderColor = Color.DARK_GRAY;
 
-    public void renderImage(String filename, String filenameWithSolution, ImageProcessingData data, ITaskGenerator generator) throws IOException {
+    public BufferedImage renderImage(ImageProcessingData data, ITaskGenerator generator, boolean withSolution) throws IOException {
         int width = data.pixels.length;
         int height = data.pixels[0].length;
-        renderImage(false, filename, data, width, height, generator);
-        renderImage(true, filenameWithSolution, data, width, height, generator);
+
+        return renderImage(withSolution, data, width, height, generator);
     }
 
-    private void renderImage(boolean withSolution, String filename, ImageProcessingData data, int width, int height, ITaskGenerator generator) throws IOException {
+    private BufferedImage renderImage(boolean withSolution, ImageProcessingData data, int width, int height, ITaskGenerator generator) throws IOException {
         BufferedImage image = new BufferedImage(width * sizeOfCell, height * sizeOfCell, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
 
@@ -55,7 +55,7 @@ public class ImageRenderImpl {
         image = addLegend(image, data.colorGroups);
         addTypeOfCalc(image, generator);
 
-        ImageIO.write(image, "PNG", new File(filename));
+        return image;
     }
 
     private BufferedImage addTypeOfCalc(BufferedImage imageWithLegend, ITaskGenerator generator) {

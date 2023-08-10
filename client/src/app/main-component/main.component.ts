@@ -8,6 +8,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MainComponent {
     public fileName: string = '';
+    public image?: string = undefined;
+    public imageWithSolution?: string = undefined;
 
     constructor(private http: HttpClient) {
     }
@@ -21,11 +23,14 @@ export class MainComponent {
 
             const formData = new FormData();
 
-            formData.append("thumbnail", file);
+            formData.append("sourceImage", file);
 
             const upload$ = this.http.post("/api/image-upload", formData);
 
-            upload$.subscribe();
+            upload$.subscribe((value:any) => {
+                this.image = value.image;
+                this.imageWithSolution = value.imageWithSolution;
+            });
         }
     }
 }

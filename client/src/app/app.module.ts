@@ -7,6 +7,8 @@ import {MainComponent} from './main-component/main.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserAnimationsModule,
     MatIconModule,
     HttpClientModule,
+    MatExpansionModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
