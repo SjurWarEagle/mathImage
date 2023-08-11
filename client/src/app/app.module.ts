@@ -12,8 +12,11 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatRadioModule} from "@angular/material/radio";
 import {FormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     MainComponent
@@ -29,9 +32,10 @@ import {FormsModule} from "@angular/forms";
     MatProgressSpinnerModule,
     MatRadioModule,
     FormsModule,
+    MatCardModule,
+    MatButtonToggleModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: []
 })
 export class AppModule {
 }

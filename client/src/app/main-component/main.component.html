@@ -1,33 +1,60 @@
-<div class="loading-indicator"
-     *ngIf="showLoading">
-  <mat-spinner></mat-spinner>
-</div>
+<mat-toolbar>
+  Color by Math
+</mat-toolbar>
 
-<input type="file" class="file-input"
-       requiredFileType="image/png"
-       (change)="onFileSelected($event)" #fileUpload>
-<div class="file-upload">
+<mat-card>
+  <mat-card-content>
+    <div class="loading-indicator"
+         *ngIf="showLoading">
+      <mat-spinner></mat-spinner>
+    </div>
 
-  {{fileName || "No file uploaded yet."}}
+    <input type="file" class="file-input"
+           requiredFileType="image/png"
+           (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
 
-  <button mat-mini-fab color="primary" class="upload-btn"
-          (click)="fileUpload.click()">
-    <mat-icon>attach_file</mat-icon>
-  </button>
-</div>
+      <!--      {{fileName || "No file uploaded yet."}}-->
 
-<mat-radio-group aria-label="Select an option"
-                 [(ngModel)]="selectedMath"
-                 (change)="mathChanged()"
->
-  <mat-radio-button value="SMALL_ADDITION"
-  >small addition (1+1)
-  </mat-radio-button>
+      <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+    </div>
 
-  <mat-radio-button value="SMALL_MULTIPLY"
-  >small multiply (1x1)
-  </mat-radio-button>
-</mat-radio-group>
+    <mat-radio-group aria-label="Select an option"
+                     [(ngModel)]="selectedMath"
+                     (change)="mathChanged()"
+    >
+      <mat-radio-button value="SMALL_ADDITION"
+      >small addition (1+1)
+      </mat-radio-button>
+
+      <mat-radio-button value="SMALL_MULTIPLY"
+      >small multiply (1x1)
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <br/>
+
+    <mat-radio-group aria-label="Select an option"
+                     [(ngModel)]="selectedDisplay"
+                     (change)="displayChanged()"
+                     *ngIf="image"
+    >
+      <mat-radio-button value="FULL_WIDTH"
+      >full width
+      </mat-radio-button>
+
+      <mat-radio-button value="FULL_IMAGE"
+      >full image
+      </mat-radio-button>
+    </mat-radio-group>
+
+  </mat-card-content>
+
+</mat-card>
+
 
 <mat-accordion class="results">
   <mat-expansion-panel
@@ -45,7 +72,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <img
-      class="result-image-solution"
+      [ngClass]="{
+                    'image-full-width':selectedDisplay === 'FULL_WIDTH',
+                    'image-full-image':selectedDisplay === 'FULL_IMAGE',
+                }"
       src="data:image/png;base64,{{image}}"/>
   </mat-expansion-panel>
   <mat-expansion-panel
@@ -62,7 +92,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <img
-      class="result-image-solution"
+      [ngClass]="{
+                    'image-full-width':selectedDisplay === 'FULL_WIDTH',
+                    'image-full-image':selectedDisplay === 'FULL_IMAGE',
+                }"
       src="data:image/png;base64,{{imageWithSolution}}"/>
   </mat-expansion-panel>
 </mat-accordion>

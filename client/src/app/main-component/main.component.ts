@@ -12,6 +12,7 @@ export class MainComponent {
   public file?: File;
   public fileName: string = '';
   public selectedMath: string = 'SMALL_MULTIPLY';
+  public selectedDisplay: string = 'FULL_IMAGE';
   public image?: string = undefined;
   public imageWithSolution?: string = undefined;
 
@@ -20,6 +21,10 @@ export class MainComponent {
 
   public mathChanged(): void {
     this.updateImages();
+  }
+
+  public displayChanged(): void {
+    // this.updateImages();
   }
 
   public onFileSelected(event: any): void {
@@ -58,4 +63,6 @@ export class MainComponent {
       this.showLoading = false;
     });
   }
+
+  protected readonly undefined = undefined;
 }
