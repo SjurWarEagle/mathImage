@@ -23,10 +23,6 @@ export class MainComponent {
     this.updateImages();
   }
 
-  public displayChanged(): void {
-    // this.updateImages();
-  }
-
   public onFileSelected(event: any): void {
     const file: File = event.target.files[0];
 
