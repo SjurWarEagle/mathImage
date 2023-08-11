@@ -64,6 +64,8 @@ export class MainComponent {
         this.errors=e.error.errors;
       }
       this.showLoading = false;
+      this.image = undefined;
+      this.imageWithSolution = undefined;
     }
 
   }

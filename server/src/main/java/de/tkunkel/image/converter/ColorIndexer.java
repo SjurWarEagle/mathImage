@@ -43,6 +43,10 @@ public class ColorIndexer {
             to = from + slice - 1;
         }
 
+        if (rc.size() > 50) {
+            throw new RuntimeException("Image has too many colors");
+        }
+
         return rc;
     }
 
