@@ -58,7 +58,7 @@ jobs:
         
       - name: Client Build
         working-directory: client
-        run: npm run build:prod
+        run: npm run updateBuildInfo -- $(date +"%Y%m%d-%H%M%S") "prod" && npm run build:prod
         
       - name: Build and push
         id: docker_build
