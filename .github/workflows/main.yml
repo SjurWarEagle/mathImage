@@ -44,8 +44,16 @@ jobs:
         working-directory: client
         run: npm install
  
+      - name: Client 1
+        run: cat src/environment/environment.ts
+        working-directory: client
+        
       - name: Client Prepare Build
         run: npm run updateBuildInfo -- $(date +"%Y%m%d-%H%M%S") "prod"
+        working-directory: client
+        
+      - name: Client 2
+        run: cat src/environment/environment.ts
         working-directory: client
         
       - name: Client Build
