@@ -45,15 +45,15 @@ jobs:
         run: npm install
  
       - name: Client 1
-        run: cat src/environment/environment.ts
+        run: cat src/environments1/environment.ts
         working-directory: client
         
-      - name: Client Prepare Build
+      - name: Client update BuildInfo
         run: npm run updateBuildInfo -- $(date +"%Y%m%d-%H%M%S") "prod"
         working-directory: client
         
       - name: Client 2
-        run: cat src/environment/environment.ts
+        run: cat src/environments/environment.ts
         working-directory: client
         
       - name: Client Build
