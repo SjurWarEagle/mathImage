@@ -36,16 +36,14 @@ jobs:
         run: mvn -U -B test package --file pom.xml
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Client Install dependencies
         working-directory: client
         run: npm install
  
-#      - name: Client Run tests
-#        run: npm run test:headless
       - name: Client Prepare Build
         run: npm run updateBuildInfo -- $(date +"%Y%m%d-%H%M%S") "prod"
         working-directory: client
