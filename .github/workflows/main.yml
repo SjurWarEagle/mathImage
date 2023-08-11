@@ -45,7 +45,7 @@ jobs:
         run: npm install
  
       - name: Client 1
-        run: cat src/environments1/environment.ts
+        run: cat src/environments/environment.ts
         working-directory: client
         
       - name: Client update BuildInfo
