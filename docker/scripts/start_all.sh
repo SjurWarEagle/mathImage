@@ -1,6 +1,6 @@
 /etc/init.d/nginx restart
-curl http://localhost:98
-curl http://localhost:98/app
+#curl http://localhost:98
+#curl http://localhost:98/app
 
 #nginx -g daemon off
 #service nginx restart
