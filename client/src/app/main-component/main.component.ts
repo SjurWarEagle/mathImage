@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {GenerateImageResponse} from "../types/generate-image-response";
 
 @Component({
   selector: 'app-main-component',
@@ -11,6 +12,7 @@ export class MainComponent {
   public showLoading: boolean = false;
   public file?: File;
   public fileName: string = '';
+  public errors: string[] = [];
   public selectedMath: string = 'SMALL_MULTIPLY';
   public selectedDisplay: string = 'FULL_IMAGE';
   public image?: string = undefined;
@@ -33,12 +35,12 @@ export class MainComponent {
     }
   }
 
-  private updateImages() {
-    if (!this.file){
+  private async updateImages() {
+    if (!this.file) {
       //no file selected
       return;
     }
-    if (!this.selectedMath){
+    if (!this.selectedMath) {
       //no math selected
       return;
     }
@@ -49,16 +51,20 @@ export class MainComponent {
     formData.append("sourceImage", this.file);
     formData.append("selectedMath", this.selectedMath);
 
-    const upload$ = this.http.post("/api/image-upload", formData);
+    this.errors = [];
+    try {
 
-    upload$.subscribe((value: any) => {
+      let value: GenerateImageResponse = (await this.http.post("/api/image-upload", formData).toPromise()) as GenerateImageResponse;
+
       this.showLoading = false;
       this.image = value.image;
       this.imageWithSolution = value.imageWithSolution;
-    }, () => {
+    } catch (e: any) {
+      if (e && e.error && e.error.errors) {
+        this.errors=e.error.errors;
+      }
       this.showLoading = false;
-    });
-  }
+    }
 
-  protected readonly undefined = undefined;
+  }
 }

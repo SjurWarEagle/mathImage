@@ -10,6 +10,7 @@ import de.tkunkel.image.types.ImageProcessingData;
 import de.tkunkel.image.types.TaskType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,6 @@ public class ImageUploadController {
         this.imageRender = imageRender;
         this.colorIndexer = colorIndexer;
     }
-
 
     @PostMapping(
             value = "/api/image-upload",
